@@ -6,15 +6,20 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import com.example.bank.ws.AccountType;
+import com.example.bank.ws.GetAccountRequest;
+import com.example.bank.ws.GetAccountResponse;
+import com.example.bank.ws.DepositRequest;
+import com.example.bank.ws.DepositResponse;
+import com.example.bank.ws.WithdrawRequest;
+import com.example.bank.ws.WithdrawResponse;
+
+
 
 import com.example.bank.service.BankService;
 import com.example.bank.service.BankService.Account;
 import com.example.bank.service.UnknownAccountException;
-import com.example.bank.ws.AccountType;
-import com.example.bank.ws.DepositRequest;
-import com.example.bank.ws.DepositResponse;
-import com.example.bank.ws.GetAccountRequest;
-import com.example.bank.ws.GetAccountResponse;
+
 
 @Endpoint
 public class BankEndpoint {
@@ -44,6 +49,21 @@ public class BankEndpoint {
     resp.setAccount(dto);
     return resp;
   }
+
+  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "WithdrawRequest")
+@ResponsePayload
+public WithdrawResponse withdraw(@RequestPayload WithdrawRequest request) {
+
+  BigDecimal newBalance = bankService.withdraw(
+      request.getAccountId(),
+      request.getAmount()
+  );
+
+  WithdrawResponse response = new WithdrawResponse();
+  response.setNewBalance(newBalance);
+  return response;
+}
+
 
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "DepositRequest")
   @ResponsePayload

@@ -4,6 +4,9 @@
             xmlns:tns="http://example.com/bank"
             elementFormDefault="qualified">
 
+  <!-- ===================== -->
+  <!-- AccountType -->
+  <!-- ===================== -->
   <xsd:complexType name="AccountType">
     <xsd:sequence>
       <xsd:element name="accountId" type="xsd:string"/>
@@ -13,6 +16,9 @@
     </xsd:sequence>
   </xsd:complexType>
 
+  <!-- ===================== -->
+  <!-- GetAccount -->
+  <!-- ===================== -->
   <xsd:element name="GetAccountRequest">
     <xsd:complexType>
       <xsd:sequence>
@@ -29,6 +35,9 @@
     </xsd:complexType>
   </xsd:element>
 
+  <!-- ===================== -->
+  <!-- Deposit -->
+  <!-- ===================== -->
   <xsd:element name="DepositRequest">
     <xsd:complexType>
       <xsd:sequence>
@@ -39,6 +48,26 @@
   </xsd:element>
 
   <xsd:element name="DepositResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="newBalance" type="xsd:decimal"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ===================== -->
+  <!-- Withdraw (AJOUT CORRECT) -->
+  <!-- ===================== -->
+  <xsd:element name="WithdrawRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="accountId" type="xsd:string"/>
+        <xsd:element name="amount" type="xsd:decimal"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="WithdrawResponse">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="newBalance" type="xsd:decimal"/>
